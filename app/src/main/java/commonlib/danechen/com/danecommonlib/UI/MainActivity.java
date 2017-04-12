@@ -1,4 +1,4 @@
-package commonlib.danechen.com.danecommonlib;
+package commonlib.danechen.com.danecommonlib.UI;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -12,6 +12,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import commonlib.danechen.com.danecommonlib.R;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
