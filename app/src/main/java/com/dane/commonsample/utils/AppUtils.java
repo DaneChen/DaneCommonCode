@@ -1,4 +1,4 @@
-package commonlib.danechen.com.danecommonlib.utils;
+package com.dane.commonsample.utils;
 
 import android.app.ActivityManager;
 import android.content.Context;

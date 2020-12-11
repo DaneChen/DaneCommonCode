@@ -1,4 +1,4 @@
-package commonlib.danechen.com.danecommonlib;
+package com.dane.commonsample;
 
 import org.junit.Test;
 

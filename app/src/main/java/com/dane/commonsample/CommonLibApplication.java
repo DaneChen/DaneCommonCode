@@ -1,8 +1,8 @@
-package commonlib.danechen.com.danecommonlib;
+package com.dane.commonsample;
 
 import android.app.Application;
 
-import commonlib.danechen.com.danecommonlib.utils.AppUtils;
+import com.dane.commonsample.utils.AppUtils;
 
 /**
  * Created by chen on 2017/4/13.

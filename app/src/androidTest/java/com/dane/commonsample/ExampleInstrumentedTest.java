@@ -1,4 +1,4 @@
-package commonlib.danechen.com.danecommonlib;
+package com.dane.commonsample;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
