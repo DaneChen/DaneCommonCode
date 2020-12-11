@@ -1,0 +1,45 @@
+ext {
+
+    //扫描模块是否独立运行
+    moduleScannerRunAlone = false
+
+    //统一设置APP配置
+    setDefaultConfig = { extension ->
+        //相对于APP中的build.gradle android {}的内容
+        extension.android{
+            compileSdkVersion rootProject.ext.android.compileSdkVersion
+            defaultConfig {
+                minSdkVersion rootProject.ext.android.minSdkVersion
+                targetSdkVersion rootProject.ext.android.targetSdkVersion
+                versionCode rootProject.ext.android.versionCode
+                versionName rootProject.ext.android.versionName
+                //Plugin 3.0.0 includes a new dependency mechanism that automatically matches variants when consuming a library. 
+                // This means an app's debug variant automatically consumes a library's debug variant, and so on. 
+                // It also works when using flavors—an app's redDebug variant will consume a library's redDebug variant. 
+                // To make this work, the plugin now requires that all flavors belong to a named flavor dimension 
+                // —even if you intend to use only a single dimension. Otherwise, you will get the following build error:
+                //Error:All flavors must now belong to a named flavor dimension.
+                //The flavor 'flavor_name' is not assigned to a flavor dimension.
+                // https://d.android.com/r/tools/flavorDimensions-missing-error-message.html
+                flavorDimensions "default"
+
+                testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+            }
+        }
+
+    }
+
+    android = [
+            compileSdkVersion : 29,
+            applicationId    : "com.dane.commonsample",
+            minSdkVersion    : 18,
+            targetSdkVersion : 29,
+            versionCode      : 1,
+            versionName      : "1.0"]
+
+
+    dependencies = [
+
+    ]
+}
