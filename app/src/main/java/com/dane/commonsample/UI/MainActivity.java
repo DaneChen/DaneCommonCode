@@ -43,6 +43,14 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        findViewById(R.id.id_test_view_model).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TestViewModelActivity.startActivity(MainActivity.this);
+            }
+        });
+
     }
 
     @Override

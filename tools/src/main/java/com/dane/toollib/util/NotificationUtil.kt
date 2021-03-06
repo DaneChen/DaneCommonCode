@@ -8,16 +8,17 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
-import android.provider.Settings
 import android.text.TextUtils
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
+import com.example.tools.R
+
 /**
  * @author chengr
  * description:
  * create on 2020/12/11
  */
-class NotifiCationUtil {
+class NotificationUtil {
     companion object {
 
         /**
@@ -46,7 +47,8 @@ class NotifiCationUtil {
                             .setPriority(getLowVersionPriority(channel)) // 通知优先级，优先级确定通知在Android7.1和更低版本上的干扰程度。
                             .setVisibility(channel.lockScreenVisibility) // 锁定屏幕公开范围
                             .setVibrate(channel.vibrate) // 震动模式
-                            .setSound(channel.sound ?: Settings.System.DEFAULT_NOTIFICATION_URI)    // 声音
+                            //.setSound(channel.sound ?: Settings.System.DEFAULT_NOTIFICATION_URI)    // 声音
+                            .setSound(null)
                             .setOnlyAlertOnce(true) // 设置通知只会在通知首次出现时打断用户（通过声音、振动或视觉提示），而之后更新则不会再打断用户。
 
             // 标题，此为可选内容
@@ -55,6 +57,9 @@ class NotifiCationUtil {
             // 正文文本，此为可选内容
             if (!TextUtils.isEmpty(text)) builder.setContentText(text)
 
+            builder.setGroup("default")
+
+            builder.setSmallIcon(R.mipmap.ic_launcher)
             // 设置通知的点按操作，每个通知都应该对点按操作做出响应，通常是在应用中打开对应于该通知的Activity。
             if (intent != null) {
                 val pendingIntent =
@@ -100,7 +105,8 @@ class NotifiCationUtil {
                     NotificationChannel(channel.channelId, channel.name, channel.importance)
             notificationChannel.description = channel.description   // 描述
             notificationChannel.vibrationPattern = channel.vibrate  // 震动模式
-            notificationChannel.setSound(channel.sound ?: Settings.System.DEFAULT_NOTIFICATION_URI, notificationChannel.audioAttributes)    // 声音
+            notificationChannel.setSound(null, null)
+            //notificationChannel.setSound(channel.sound ?: Settings.System.DEFAULT_NOTIFICATION_URI, notificationChannel.audioAttributes)    // 声音
             val notificationManager =
                     context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.createNotificationChannel(notificationChannel)
