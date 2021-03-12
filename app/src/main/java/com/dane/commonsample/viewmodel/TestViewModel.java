@@ -2,6 +2,8 @@ package com.dane.commonsample.viewmodel;
 
 import android.os.AsyncTask;
 
+import com.dane.commonsample.UI.TestKotlin;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -35,6 +37,8 @@ public class TestViewModel extends ViewModel {
                 return 10;
             }
         }.execute();
+
+        TestKotlin.Companion.testBaseDataType();
     }
 
     public LiveData<Integer> getUserLiveData() {

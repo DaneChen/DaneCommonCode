@@ -31,6 +31,7 @@ public class TestMap {
             Log.d(TAG, "testRemoveMap:removed=" + entry.getKey() + " size=" + mapData.size());
         }
         testRemoveMap2();
+
     }
 
     public static void testRemoveMap2(){

@@ -6,6 +6,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.dane.commonsample.R;
+import com.dane.commonsample.test.tokotlin;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
@@ -51,6 +52,8 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+        tokotlin.kotlinFunc();
+        TestViewModelActivity.startActivity(MainActivity.this);
     }
 
     @Override
