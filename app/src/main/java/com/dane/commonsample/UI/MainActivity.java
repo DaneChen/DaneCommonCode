@@ -1,12 +1,17 @@
 package com.dane.commonsample.UI;
 
+import android.Manifest;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.dane.commonsample.R;
+import com.dane.commonsample.life.ActivityLifeCycleObserver;
 import com.dane.commonsample.test.tokotlin;
+import com.dane.permission.PermissionListener;
+import com.dane.permission.PermissionsUtil;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
@@ -52,8 +57,34 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+        findViewById(R.id.id_test_permission).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                testRequestPermission();
+            }
+        });
+
         tokotlin.kotlinFunc();
-        TestViewModelActivity.startActivity(MainActivity.this);
+        //TestViewModelActivity.startActivity(MainActivity.this);
+
+        getLifecycle().addObserver(new ActivityLifeCycleObserver("MainActivity1"));
+    }
+
+    private void testRequestPermission() {
+        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 100);
+        }*/
+        PermissionsUtil.requestPermission(this, new PermissionListener() {
+            @Override
+            public void permissionGranted(String[] permission) {
+
+            }
+
+            @Override
+            public void permissionDenied(String[] permission) {
+
+            }
+        }, Manifest.permission.WRITE_EXTERNAL_STORAGE);
     }
 
     @Override

@@ -25,4 +25,12 @@ dependencies {
 
     implementation project(":tools")
     implementation 'com.google.android.material:material:1.2.1'
+    implementation project(":permission")
+
+    //ViewModelScope
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
+//LifecycleScope
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.2.0'
+//liveData
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
 }

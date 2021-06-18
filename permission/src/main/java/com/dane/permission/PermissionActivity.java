@@ -2,6 +2,7 @@ package com.dane.permission;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
@@ -24,6 +25,11 @@ public class PermissionActivity extends Activity {
     private final String defaultContent = "当前应用缺少必要权限。\n \n 请点击 \"设置\"-\"权限\"-打开所需权限。";
     private final String defaultCancel = "取消";
     private final String defaultEnsure = "设置";
+
+    /**
+     * 是否需要再次请求权限
+     */
+    private boolean notRequestAgain = false;
 
     @Override protected void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,8 +58,12 @@ public class PermissionActivity extends Activity {
             if (PermissionsUtil.hasPermission(this, permission)) {
                 permissionsGranted();
             } else {
-                requestPermissions(permission); // 请求权限,回调时会触发onResume
-                isRequireCheck = false;
+                if( notRequestAgain) {
+                    permissionsDenied();
+                }else {
+                    requestPermissions(permission); // 请求权限,回调时会触发onResume
+                    isRequireCheck = false;
+                }
             }
         } else {
             isRequireCheck = true;
@@ -92,6 +102,7 @@ public class PermissionActivity extends Activity {
     }
 
     // 显示缺失权限提示
+    private Dialog dialog = null;
     private void showMissingPermissionDialog() {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(PermissionActivity.this);
@@ -102,17 +113,25 @@ public class PermissionActivity extends Activity {
         builder.setNegativeButton(TextUtils.isEmpty(tipInfo.cancel) ? defaultCancel : tipInfo.cancel, new DialogInterface.OnClickListener(){
             @Override public void onClick(DialogInterface dialog, int which) {
                 permissionsDenied();
+                dialog = null;
             }
         });
 
         builder.setPositiveButton(TextUtils.isEmpty(tipInfo.ensure) ? defaultEnsure : tipInfo.ensure, new DialogInterface.OnClickListener() {
             @Override public void onClick(DialogInterface dialog, int which) {
                 PermissionsUtil.gotoSetting(PermissionActivity.this);
+                if( dialog != null){
+                    dialog.dismiss();
+                }
+                dialog = null;
+                notRequestAgain = true;
             }
         });
 
         builder.setCancelable(false);
-        builder.show();
+        dialog = builder.create();
+        dialog.getWindow().setWindowAnimations(R.style.permissionDialogAnimation);
+        dialog.show();
     }
 
     private void permissionsDenied() {

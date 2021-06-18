@@ -16,7 +16,9 @@
         android:id="@+id/id_tv_hello_world"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:text="Hello World!hhhhhhhhhhhhhhhhhhhhhwwwwwwwwwwwwwwwwwwwweeeeeeeeee"
+        android:maxLines="1"
+        android:ellipsize="end"/>
 
     <TextView
         android:id="@+id/id_test_view_model"
@@ -27,4 +29,12 @@
         android:layout_marginTop="20dp"
         android:padding="5dp"/>
 
+    <TextView
+        android:id="@+id/id_test_permission"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="test permission"
+        android:layout_below="@id/id_test_view_model"
+        android:layout_marginTop="20dp"
+        android:padding="5dp"/>
 </RelativeLayout>

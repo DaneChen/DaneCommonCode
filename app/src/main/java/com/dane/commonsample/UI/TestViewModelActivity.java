@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.dane.commonsample.R;
@@ -33,9 +35,9 @@ public class TestViewModelActivity extends AppCompatActivity {
     }
 
     private TextView mTvTestResult;
+    private RelativeLayout mRlTestView;
 
     private TestViewModel userViewModel = null;
-
     private AudioManager mAm;
 
     @Override
@@ -43,6 +45,7 @@ public class TestViewModelActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_view_model);
         mTvTestResult = findViewById(R.id.id_tv_test_result);
+        mRlTestView = findViewById(R.id.id_rl_test_add_view_in_code);
 
         userViewModel = new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(TestViewModel.class);
         addObserver();
@@ -62,13 +65,44 @@ public class TestViewModelActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         requestFocus();
-                        mAm.abandonAudioFocus(afChangeListener);
-                        NotificationManager mNotificationManager = (NotificationManager)TestViewModelActivity.this.getSystemService(Context.NOTIFICATION_SERVICE);
+                        //mAm.abandonAudioFocus(afChangeListener);
+                        //NotificationManager mNotificationManager = (NotificationManager)TestViewModelActivity.this.getSystemService(Context.NOTIFICATION_SERVICE);
                         //mNotificationManager.notify(1, notification);
                     }
                 }, 1000);
             }
         }, 1000);
+        addTestView();
+    }
+
+    TextView textView1;
+    TextView textView2;
+    private void addTestView() {
+        textView1 = new TextView(this);
+        textView1.setText("TextView1111");
+        textView1.setId(View.generateViewId());
+        mRlTestView.addView(textView1);
+
+        textView2 = new TextView(this);
+        textView2.setText("TextView2");
+        textView2.setId(View.generateViewId());
+        mRlTestView.addView(textView2);
+
+//        getWindow().getDecorView().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+                RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) textView1.getLayoutParams();
+                layoutParams.height = 100;
+                layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+                layoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+                textView1.setLayoutParams(layoutParams);
+
+                RelativeLayout.LayoutParams layoutParams2 = (RelativeLayout.LayoutParams) textView2.getLayoutParams();
+                layoutParams2.addRule(RelativeLayout.ABOVE, textView1.getId());
+                layoutParams2.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+                textView2.setLayoutParams(layoutParams2);
+//            }
+//        }, 1000);
     }
 
     @Override
